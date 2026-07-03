@@ -1,0 +1,389 @@
+# Contact Hover Ghost Reveal
+
+## HTML
+
+```html
+<div class="cursor" aria-hidden="true"></div>
+
+  <main class="page">
+    <header class="site-header" aria-label="Site header">
+      <a class="mark" href="#" aria-label="F and S Creations home">
+        <span></span>
+        <span></span>
+      </a>
+      <a class="menu-link" href="#">+ Menu</a>
+    </header>
+
+    <section class="contact-stage" aria-label="Contact">
+      <div class="stage-rule stage-rule--top"></div>
+
+      <a class="contact-trigger" href="#" data-contact aria-label="Contact">
+        <span class="contact-dot" aria-hidden="true"></span>
+        <span class="contact-word" data-text="Contact">
+          <span class="contact-word__main">Contact</span>
+          <span class="contact-word__ghost" aria-hidden="true">Contact</span>
+          <span class="contact-word__shade" aria-hidden="true">Contact</span>
+        </span>
+      </a>
+
+      <div class="stage-rule stage-rule--bottom"></div>
+    </section>
+
+    <footer class="site-footer">
+      <a class="footer-mark" href="#">
+        <span></span>
+        <strong>F&amp;S CREATIONS</strong>
+      </a>
+    </footer>
+  </main>
+```
+
+## CSS
+
+```css
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --cursor-x: 50vw;
+  --cursor-y: 50vh;
+  --local-x: 0px;
+  --local-y: 0px;
+  --ghost-shift: 0px;
+  --dot-color: #050505;
+  --text-color: #202020;
+  --muted: #d8d8d8;
+  --accent: #fff41b;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--text-color);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #fbfbfb;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    linear-gradient(#f6f6f6, #f6f6f6) 0 65px / 100% 1px no-repeat,
+    #fbfbfb;
+}
+
+.site-header {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 66px;
+  padding: 0 22px;
+}
+
+.mark {
+  display: grid;
+  gap: 4px;
+  width: 17px;
+}
+
+.mark span,
+.footer-mark span {
+  display: block;
+  height: 4px;
+  background: #111;
+}
+
+.mark span:first-child {
+  width: 14px;
+}
+
+.mark span:last-child {
+  width: 7px;
+}
+
+.menu-link {
+  font-size: 10px;
+  letter-spacing: 0;
+}
+
+.contact-stage {
+  position: relative;
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 86px 24px 76px;
+}
+
+.stage-rule {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  height: 1px;
+  background: #e4e4e4;
+}
+
+.stage-rule--top {
+  top: 173px;
+}
+
+.stage-rule--bottom {
+  bottom: 44px;
+}
+
+.contact-trigger {
+  --ghost-shift: 0px;
+  --ghost-clip: 100%;
+  --ghost-opacity: 0;
+  --shade-opacity: 0;
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 80px;
+  padding: 14px 18px 16px;
+  cursor: none;
+  isolation: isolate;
+}
+
+.contact-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--dot-color);
+  transform: translateY(1px) scale(1);
+  transition:
+    background 260ms ease,
+    transform 360ms cubic-bezier(0.18, 0.88, 0.26, 1);
+}
+
+.contact-word {
+  position: relative;
+  display: inline-grid;
+  place-items: center start;
+  color: #202020;
+  font-size: clamp(42px, 8vw, 72px);
+  font-weight: 650;
+  line-height: 0.94;
+  letter-spacing: 0;
+}
+
+.contact-word__main,
+.contact-word__ghost,
+.contact-word__shade {
+  grid-area: 1 / 1;
+}
+
+.contact-word__main {
+  position: relative;
+  z-index: 3;
+  transition: color 240ms ease, transform 320ms cubic-bezier(0.18, 0.88, 0.26, 1);
+}
+
+.contact-word__ghost {
+  z-index: 2;
+  color: #7d7d7d;
+  opacity: var(--ghost-opacity);
+  clip-path: inset(var(--ghost-clip) 0 0 0);
+  transform:
+    translate3d(
+      calc(var(--local-x) * -0.025),
+      calc(28px + var(--local-y) * 0.04 + var(--ghost-shift)),
+      0
+    )
+    scaleY(0.98);
+  transition:
+    clip-path 420ms cubic-bezier(0.18, 0.88, 0.22, 1),
+    opacity 240ms ease,
+    transform 420ms cubic-bezier(0.18, 0.88, 0.22, 1);
+}
+
+.contact-word__shade {
+  z-index: 1;
+  color: #ededed;
+  opacity: var(--shade-opacity);
+  transform: translate3d(calc(var(--local-x) * -0.035 - 18px), 0, 0);
+  transition: opacity 280ms ease, transform 420ms cubic-bezier(0.18, 0.88, 0.22, 1);
+}
+
+.contact-trigger:hover,
+.contact-trigger:focus-visible,
+.contact-trigger.is-active {
+  --ghost-clip: 0%;
+  --ghost-opacity: 1;
+  --shade-opacity: 1;
+  --ghost-shift: 7px;
+  --dot-color: #777;
+}
+
+.contact-trigger:hover .contact-dot,
+.contact-trigger:focus-visible .contact-dot,
+.contact-trigger.is-active .contact-dot {
+  transform: translateY(1px) scale(1.18);
+}
+
+.contact-trigger:hover .contact-word__main,
+.contact-trigger:focus-visible .contact-word__main,
+.contact-trigger.is-active .contact-word__main {
+  color: #151515;
+  transform: translate3d(calc(var(--local-x) * 0.012), calc(var(--local-y) * 0.01), 0);
+}
+
+.contact-trigger:focus-visible {
+  outline: 1px solid #111;
+  outline-offset: 8px;
+}
+
+.site-footer {
+  position: fixed;
+  z-index: 10;
+  left: 22px;
+  bottom: 14px;
+}
+
+.footer-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.footer-mark span {
+  width: 9px;
+}
+
+.cursor {
+  position: fixed;
+  z-index: 30;
+  left: 0;
+  top: 0;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: var(--accent);
+  opacity: 0;
+  mix-blend-mode: multiply;
+  transform: translate3d(calc(var(--cursor-x) - 50%), calc(var(--cursor-y) - 50%), 0);
+  transition: opacity 180ms ease, width 240ms ease, height 240ms ease;
+}
+
+body.has-pointer .cursor {
+  opacity: 1;
+}
+
+body.is-contact-hover .cursor {
+  width: 18px;
+  height: 18px;
+}
+
+@media (pointer: coarse) {
+  .cursor {
+    display: none;
+  }
+
+  .contact-trigger {
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 720px) {
+  .stage-rule--top {
+    top: 132px;
+  }
+
+  .contact-trigger {
+    gap: 9px;
+    min-height: 72px;
+  }
+
+  .contact-dot {
+    width: 12px;
+    height: 12px;
+  }
+}
+```
+
+## JS
+
+```js
+const root = document.documentElement;
+const body = document.body;
+const trigger = document.querySelector("[data-contact]");
+
+let cursorX = window.innerWidth / 2;
+let cursorY = window.innerHeight / 2;
+let renderedX = cursorX;
+let renderedY = cursorY;
+
+function setLocalPointer(event) {
+  const rect = trigger.getBoundingClientRect();
+  const localX = event.clientX - rect.left - rect.width / 2;
+  const localY = event.clientY - rect.top - rect.height / 2;
+
+  trigger.style.setProperty("--local-x", `${localX.toFixed(2)}px`);
+  trigger.style.setProperty("--local-y", `${localY.toFixed(2)}px`);
+  body.classList.add("is-contact-hover");
+  trigger.classList.add("is-active");
+}
+
+function animateCursor() {
+  renderedX += (cursorX - renderedX) * 0.22;
+  renderedY += (cursorY - renderedY) * 0.22;
+
+  root.style.setProperty("--cursor-x", `${renderedX.toFixed(2)}px`);
+  root.style.setProperty("--cursor-y", `${renderedY.toFixed(2)}px`);
+
+  requestAnimationFrame(animateCursor);
+}
+
+window.addEventListener("pointermove", (event) => {
+  cursorX = event.clientX;
+  cursorY = event.clientY;
+  body.classList.add("has-pointer");
+});
+
+trigger.addEventListener("pointermove", setLocalPointer);
+trigger.addEventListener("pointerover", setLocalPointer);
+
+trigger.addEventListener("pointerenter", (event) => {
+  body.classList.add("is-contact-hover");
+  trigger.classList.add("is-active");
+  setLocalPointer(event);
+});
+
+trigger.addEventListener("pointerleave", () => {
+  body.classList.remove("is-contact-hover");
+  trigger.classList.remove("is-active");
+  trigger.style.setProperty("--local-x", "0px");
+  trigger.style.setProperty("--local-y", "0px");
+});
+
+trigger.addEventListener("focus", () => {
+  trigger.classList.add("is-active");
+});
+
+trigger.addEventListener("blur", () => {
+  trigger.classList.remove("is-active");
+});
+
+animateCursor();
+```

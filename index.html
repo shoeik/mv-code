@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>mv-code</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      color-scheme: light;
+      --bg: #f5f6f2;
+      --ink: #151515;
+      --muted: #72746f;
+      --line: #d9dcd2;
+      --accent: #145c50;
+      --accent-soft: #dcebe5;
+      --panel: #ffffff;
+    }
+
+    html {
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: Inter, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      background: var(--bg);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-header {
+      display: grid;
+      gap: 18px;
+      padding: clamp(28px, 6vw, 72px) clamp(18px, 5vw, 64px) 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .site-title {
+      margin: 0;
+      font-size: clamp(36px, 9vw, 96px);
+      line-height: 0.9;
+      letter-spacing: 0;
+    }
+
+    .site-lead {
+      max-width: 680px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(14px, 2.4vw, 17px);
+      line-height: 1.8;
+    }
+
+    .work-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+      gap: 1px;
+      padding: 1px;
+      background: var(--line);
+    }
+
+    .work-card {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 260px;
+      padding: 22px;
+      background: var(--panel);
+      transition: background-color 180ms ease, transform 180ms ease;
+    }
+
+    .work-card:focus-visible,
+    .work-card:hover {
+      background: var(--accent-soft);
+      outline: none;
+    }
+
+    .work-card:active {
+      transform: scale(0.99);
+    }
+
+    .work-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .work-title {
+      align-self: center;
+      margin: 38px 0;
+      font-size: clamp(24px, 5vw, 42px);
+      line-height: 1;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .work-summary {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.7;
+    }
+
+    .work-open {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      margin-top: 22px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--accent);
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    @media (max-width: 680px) {
+      .site-header {
+        min-height: 34vh;
+        align-content: end;
+      }
+
+      .work-card {
+        min-height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="site-title">mv-code</h1>
+    <p class="site-lead">HTML/CSS/JavaScriptで再現したインタラクション実装集。スマホから各デモを直接確認できます。</p>
+  </header>
+
+  <main class="work-list" aria-label="実装一覧">
+    <a class="work-card" href="./works/works-list-hover-preview/implementation/">
+      <div class="work-meta">
+        <span>2026.06.13</span>
+        <span>01</span>
+      </div>
+      <h2 class="work-title">works-list-hover-preview</h2>
+      <p class="work-summary">実績リストの行に応じて背景色、プレビュー画像、view moreボタンが切り替わるUI</p>
+      <span class="work-open" aria-hidden="true">→</span>
+    </a>
+
+    <a class="work-card" href="./works/contact-hover-ghost-reveal/implementation/">
+      <div class="work-meta">
+        <span>2026.06.14</span>
+        <span>02</span>
+      </div>
+      <h2 class="work-title">contact-hover-ghost-reveal</h2>
+      <p class="work-summary">Contact見出しのホバーに連動してゴーストレイヤーが現れるUI</p>
+      <span class="work-open" aria-hidden="true">→</span>
+    </a>
+
+    <a class="work-card" href="./works/product-hero-copy-slider/implementation/">
+      <div class="work-meta">
+        <span>2026.06.15</span>
+        <span>03</span>
+      </div>
+      <h2 class="work-title">product-hero-copy-slider</h2>
+      <p class="work-summary">商品ヒーローのビジュアルとコピーがスライド遷移するUI</p>
+      <span class="work-open" aria-hidden="true">→</span>
+    </a>
+
+    <a class="work-card" href="./works/scroll-blur-field-gallery/implementation/">
+      <div class="work-meta">
+        <span>2026.06.16</span>
+        <span>04</span>
+      </div>
+      <h2 class="work-title">scroll-blur-field-gallery</h2>
+      <p class="work-summary">スクロール量に応じて見出し、説明、画像のblurが変化するUI</p>
+      <span class="work-open" aria-hidden="true">→</span>
+    </a>
+
+    <a class="work-card" href="./works/people-card-focus-gallery/implementation/">
+      <div class="work-meta">
+        <span>2026.06.17</span>
+        <span>05</span>
+      </div>
+      <h2 class="work-title">people-card-focus-gallery</h2>
+      <p class="work-summary">選択した人物カードがカラーの大判写真へ展開するギャラリーUI</p>
+      <span class="work-open" aria-hidden="true">→</span>
+    </a>
+
+    <a class="work-card" href="./works/logo-loading-transition/implementation/">
+      <div class="work-meta">
+        <span>Prototype</span>
+        <span>06</span>
+      </div>
+      <h2 class="work-title">logo-loading-transition</h2>
+      <p class="work-summary">ロゴを起点に画面遷移するローディング表現</p>
+      <span class="work-open" aria-hidden="true">→</span>
+    </a>
+
+    <a class="work-card" href="./works/circle-work-carousel/implementation/">
+      <div class="work-meta">
+        <span>Prototype</span>
+        <span>07</span>
+      </div>
+      <h2 class="work-title">circle-work-carousel</h2>
+      <p class="work-summary">円形レイアウトを使ったワークカルーセルUI</p>
+      <span class="work-open" aria-hidden="true">→</span>
+    </a>
+
+    <a class="work-card" href="./works/scroll-service-switcher/implementation/">
+      <div class="work-meta">
+        <span>Prototype</span>
+        <span>08</span>
+      </div>
+      <h2 class="work-title">scroll-service-switcher</h2>
+      <p class="work-summary">スクロールに応じてサービス表示が切り替わるUI</p>
+      <span class="work-open" aria-hidden="true">→</span>
+    </a>
+  </main>
+</body>
+</html>

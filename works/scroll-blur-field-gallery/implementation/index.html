@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scroll Blur Field Gallery</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main>
+    <section class="hero" aria-label="Facility overview">
+      <div class="hero-image"></div>
+    </section>
+
+    <section class="field-section" data-role="fieldSection" aria-labelledby="fieldTitle">
+      <div class="field-header">
+        <div class="title-group blur-target" data-blur-key="title">
+          <h1 id="fieldTitle">Our Field</h1>
+          <span>事業と職場</span>
+        </div>
+        <p class="lead blur-target" data-blur-key="lead">
+          日本空調サービスってどんな会社？<br>
+          私たちの強みと4つの職種をご紹介。
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="field-card">
+          <div class="field-photo field-photo--scope blur-target" data-blur-key="cardA"></div>
+          <div class="field-card__meta">
+            <div>
+              <span>Business Scope</span>
+              <h2>事業を知る</h2>
+            </div>
+            <a href="#" aria-label="Business Scope">→</a>
+          </div>
+        </article>
+
+        <article class="field-card">
+          <div class="field-photo field-photo--job blur-target" data-blur-key="cardB"></div>
+          <div class="field-card__meta">
+            <div>
+              <span>Job Introduction</span>
+              <h2>職種を知る</h2>
+            </div>
+            <a href="#" aria-label="Job Introduction">→</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="next-image" aria-label="Next section preview"></section>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>

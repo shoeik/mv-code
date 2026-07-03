@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Works List Hover Preview</title>
+  <link rel="stylesheet" href="./style.css?v=cursor-follow-3">
+</head>
+<body>
+  <main class="works-page" data-theme="0">
+    <header class="site-header">
+      <a class="brand" href="#">
+        <strong>Fracta inc.</strong>
+        <span>Design systems for lasting digital products.</span>
+      </a>
+
+      <nav class="global-nav" aria-label="Primary navigation">
+        <a href="#">ABOUT</a>
+        <a href="#">WORKS<sup>14</sup></a>
+        <a href="#">NEWS<sup>11</sup></a>
+        <a href="#">ESSAY &amp; PHOTO<sup>78</sup></a>
+        <a href="#">DIARY<sup>68</sup></a>
+        <a class="contact-link" href="#">CONTACT</a>
+      </nav>
+    </header>
+
+    <section class="works-section" aria-label="Works">
+      <div class="section-label">
+        <span></span>
+        <p>Works</p>
+      </div>
+
+      <div class="table-head" aria-hidden="true">
+        <span>Project Name</span>
+        <span>Category</span>
+        <span>Release</span>
+      </div>
+
+      <div class="works-list" data-role="list"></div>
+
+      <aside class="preview" aria-live="polite">
+        <div class="preview-card">
+          <div class="preview-art preview-art--old" data-role="oldArt"></div>
+          <div class="preview-art preview-art--new" data-role="newArt"></div>
+        </div>
+      </aside>
+
+      <a class="view-more" href="#" data-role="viewMore">
+        <span>view more</span>
+        <span>↗</span>
+      </a>
+
+      <a class="more-link" href="#">
+        <span>and more...</span>
+        <span>→</span>
+      </a>
+    </section>
+  </main>
+
+  <script src="./script.js?v=cursor-follow-3"></script>
+</body>
+</html>

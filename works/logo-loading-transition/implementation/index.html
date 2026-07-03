@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Logo Loading Transition</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="stage" aria-live="polite">
+    <section class="intro-screen" data-screen="intro">
+      <header class="topbar">
+        <button class="menu-button" type="button" aria-label="Open menu">
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="#">Works</a>
+          <a href="#">About</a>
+          <a href="#">Recruit</a>
+          <a href="#">News</a>
+          <a href="#">Security</a>
+          <a href="#">Contact</a>
+        </nav>
+      </header>
+
+      <div class="project-card">
+        <div class="print-preview" aria-hidden="true">
+          <span class="line line-a"></span>
+          <span class="line line-b"></span>
+          <span class="line line-c"></span>
+          <span class="line line-d"></span>
+          <span class="crest"></span>
+        </div>
+        <button class="view-button" type="button">View More</button>
+      </div>
+    </section>
+
+    <section class="hero-screen" data-screen="hero">
+      <header class="topbar hero-topbar">
+        <button class="menu-button" type="button" aria-label="Open menu">
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="#">Works</a>
+          <a href="#">About</a>
+          <a href="#">Recruit</a>
+          <a href="#">News</a>
+          <a href="#">Security</a>
+          <a href="#">Contact</a>
+        </nav>
+      </header>
+
+      <div class="hero-media" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p>WE ARE</p>
+        <p>SMALL GIANTS.</p>
+      </div>
+      <button class="replay-button" type="button">Replay</button>
+    </section>
+
+    <div class="loader" aria-hidden="true">
+      <div class="brand-lockup">
+        <span class="brand-mark"></span>
+        <span class="brand-text">F&amp;S CREATIONS</span>
+      </div>
+    </div>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>

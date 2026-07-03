@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product Hero Copy Slider</title>
+  <link rel="stylesheet" href="./style.css?v=compare-modes">
+</head>
+<body>
+  <main class="hero" aria-label="Product hero slider">
+    <section class="slider" data-state="intro">
+      <div class="visual visual--old" aria-hidden="true"></div>
+      <div class="visual visual--new" aria-hidden="true"></div>
+
+      <div class="copy copy--old" aria-label="Floating smooth writing ballpoint pen">
+        <span class="eyebrow">Product</span>
+        <span class="copy-line"><span>浮遊感のある書きごこち</span></span>
+        <span class="copy-line"><span>でふわっと書ける、摩擦レス</span></span>
+        <span class="copy-line"><span>スポールペン</span></span>
+      </div>
+
+      <div class="copy copy--new" aria-label="Expression joy">
+        <span class="copy-line" data-line="0">表現する</span>
+        <span class="copy-line" data-line="1">よろこびを。</span>
+      </div>
+
+      <div class="pager" aria-hidden="true">
+        <span>←</span>
+        <strong data-role="page">5/5</strong>
+        <span>→</span>
+      </div>
+
+      <div class="version-switch" aria-label="Version switcher">
+        <button type="button" data-mode="cards">2 cards</button>
+        <button type="button" data-mode="background">Background</button>
+      </div>
+
+      <button class="replay" type="button" data-role="action">Next</button>
+    </section>
+  </main>
+
+  <script src="./script.js?v=compare-modes"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scroll Service Switcher</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#">
+      <strong>Fracta inc.</strong>
+      <span>長く愛されるブランドづくりを支援するWeb制作会社</span>
+    </a>
+    <nav class="global-nav" aria-label="Primary navigation">
+      <a href="#">ABOUT</a>
+      <a href="#">WORKS</a>
+      <a href="#">NEWS</a>
+      <a href="#">ESSAY &amp; PHOTO</a>
+      <a href="#">DIARY</a>
+      <a class="contact-link" href="#">CONTACT</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="spacer intro">
+      <p>きちんと考え、形にする。</p>
+    </section>
+
+    <section class="service-scroll" aria-label="What We Do">
+      <div class="service-sticky">
+        <div class="section-label">
+          <span></span>
+          <p>What We Do</p>
+        </div>
+
+        <div class="service-layout">
+          <div class="service-media" aria-hidden="true">
+            <div class="media-card is-active" data-media="0">
+              <span class="grid-shot"></span>
+            </div>
+            <div class="media-card" data-media="1">
+              <span class="dashboard-shot"></span>
+            </div>
+          </div>
+
+          <div class="service-copy" aria-live="polite">
+            <p class="eyebrow" data-role="eyebrow">Web Design &amp; Development</p>
+            <h1 data-role="title">WEBサイト・ホームページ制作</h1>
+            <p class="description" data-role="description">
+              ブランドの世界観や目的に合わせ、印象に残るサイトを制作します。デザインから実装、運用までを一貫して行い、訪れる人にとって心地よいサイトを丁寧に設計します。
+            </p>
+          </div>
+        </div>
+
+        <div class="side-indicator" aria-label="Service progress">
+          <button class="indicator-dot is-active" type="button" aria-label="WEBサイト・ホームページ制作"></button>
+          <button class="indicator-dot" type="button" aria-label="WEBマーケティング・集客支援"></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="spacer outro">
+      <p>必要な支援を、必要な深さで。</p>
+    </section>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>

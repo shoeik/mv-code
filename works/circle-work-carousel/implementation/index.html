@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Circle Work Carousel</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Fracta home">
+        <strong>Fracta inc.</strong>
+        <span>Designing brands with sincerity.</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a href="#">ABOUT</a>
+        <a href="#">WORKS<sup>14</sup></a>
+        <a href="#">NEWS<sup>11</sup></a>
+        <a href="#">ESSAY &amp; PHOTO<sup>78</sup></a>
+        <a href="#">DIARY<sup>68</sup></a>
+        <a class="contact-link" href="#">CONTACT</a>
+      </nav>
+    </header>
+
+    <section class="carousel" aria-label="Featured works">
+      <p class="background-type" aria-hidden="true">timeless, with sincerity.</p>
+
+      <div class="work-stage">
+        <button class="work-visual" type="button" aria-label="Show next work">
+          <span class="device device-left"></span>
+          <svg class="circle-progress" viewBox="0 0 100 100" aria-hidden="true">
+            <circle class="circle-progress-track" cx="50" cy="50" r="48"></circle>
+            <circle class="circle-progress-bar" cx="50" cy="50" r="48"></circle>
+          </svg>
+          <span class="image-circle">
+            <span class="work-art" data-art="0"></span>
+          </span>
+        </button>
+
+        <span class="tag-pill" data-role="tag">Uxbridge</span>
+
+        <div class="work-copy" aria-live="polite">
+          <h1 data-role="title">STOKED BASE</h1>
+          <p data-role="meta">2025 · Corporate Site</p>
+        </div>
+
+        <div class="pager" aria-label="Carousel pagination">
+          <div class="dots" data-role="dots"></div>
+          <button class="pause-button" type="button" aria-label="Pause carousel">Ⅱ</button>
+        </div>
+      </div>
+
+      <aside class="news-strip" data-role="news">
+        <span>2026 · 06 · 24</span>
+        <strong>Corporate website project released.</strong>
+      </aside>
+    </section>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>
