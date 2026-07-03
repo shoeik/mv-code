@@ -44,7 +44,7 @@
 
 - Date: 2026-06-17
 - Interaction: people-card-focus-gallery
-- Summary: 採用サイト風の人物カード4分割ギャラリーで、選択カードがカラーの大判写真へ展開し、非選択カードはモノクロで暗く残るUI
+- Summary: 採用サイト風の人物カード4分割ギャラリーで、選択カードの写真がリスト全体の背景として展開し、4つの選択パネルが前面に残るUI
 - Source video: [source.mp4](works/people-card-focus-gallery/source.mp4)
 - Preview: [implementation](works/people-card-focus-gallery/implementation/index.html)
 

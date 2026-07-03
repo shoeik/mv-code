@@ -22,15 +22,8 @@ const people = [
 ];
 
 const track = document.querySelector('[data-role="track"]');
-let activeIndex = -1;
-let rotateTimer = 0;
-let resumeTimer = 0;
-const sequence = [-1, 0, 1, 2, 3];
-let sequenceIndex = 0;
-
-function columnsFor(index) {
-  return index;
-}
+const backdrop = document.querySelector('[data-role="backdrop"]');
+let activeIndex = 0;
 
 function render() {
   track.innerHTML = "";
@@ -39,10 +32,8 @@ function render() {
     card.className = "person-card";
     card.type = "button";
     card.style.setProperty("--photo", person.photo);
-    card.style.flexGrow = "1";
     card.style.setProperty("--shade", "rgba(0, 0, 0, 0.54)");
     card.innerHTML = `
-      <span class="photo-layer" aria-hidden="true"></span>
       <span class="card-content">
         <span class="role">${person.role}</span>
         <span class="arrow">→</span>
@@ -55,46 +46,23 @@ function render() {
   });
 }
 
-function setActive(index, restart = false) {
-  activeIndex = index < 0 ? -1 : (index + people.length) % people.length;
-  columnsFor(activeIndex);
+function setActive(index) {
+  activeIndex = (index + people.length) % people.length;
+  backdrop.style.setProperty("--active-photo", people[activeIndex].photo);
+
   [...track.children].forEach((card, cardIndex) => {
     const isActive = cardIndex === activeIndex;
-    const isCompressed = activeIndex >= 0 && !isActive;
-    const photo = card.querySelector(".photo-layer");
 
     card.classList.toggle("is-active", cardIndex === activeIndex);
-    card.classList.toggle("is-compressed", isCompressed);
     card.setAttribute("aria-pressed", String(isActive));
-    card.style.flexGrow = isActive ? "3.2" : isCompressed ? "0.92" : "1";
-    card.style.setProperty("--shade", isActive ? "rgba(0, 0, 0, 0.1)" : isCompressed ? "rgba(0, 0, 0, 0.62)" : "rgba(0, 0, 0, 0.54)");
-    photo.style.filter = isActive ? "grayscale(0)" : "grayscale(1)";
-    photo.style.scale = isActive ? "1.04" : "1";
+    card.style.setProperty("--shade", isActive ? "rgba(0, 0, 0, 0.03)" : "rgba(0, 0, 0, 0.58)");
   });
-
-  if (restart) pauseRotation();
-}
-
-function startRotation() {
-  window.clearInterval(rotateTimer);
-  rotateTimer = window.setInterval(() => {
-    sequenceIndex = (sequenceIndex + 1) % sequence.length;
-    setActive(sequence[sequenceIndex]);
-  }, 2300);
-}
-
-function pauseRotation() {
-  sequenceIndex = Math.max(0, sequence.indexOf(activeIndex));
-  window.clearInterval(rotateTimer);
-  window.clearTimeout(resumeTimer);
-  resumeTimer = window.setTimeout(startRotation, 4500);
 }
 
 window.addEventListener("keydown", (event) => {
-  if (event.key === "ArrowRight") setActive(activeIndex + 1, true);
-  if (event.key === "ArrowLeft") setActive(activeIndex - 1, true);
+  if (event.key === "ArrowRight") setActive(activeIndex + 1);
+  if (event.key === "ArrowLeft") setActive(activeIndex - 1);
 });
 
 render();
-setActive(-1);
-startRotation();
+setActive(0);

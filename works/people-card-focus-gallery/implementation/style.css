@@ -13,9 +13,11 @@
 body {
   margin: 0;
   min-height: 100vh;
+  min-width: 1120px;
   color: var(--ink);
   font-family: Inter, "Helvetica Neue", Arial, sans-serif;
   background: var(--paper);
+  overflow-x: auto;
 }
 
 a,
@@ -114,9 +116,38 @@ button {
   align-items: stretch;
 }
 
-.gallery-track {
-  display: flex;
+.gallery-stage {
+  position: relative;
   min-height: 430px;
+  overflow: hidden;
+  background: #222;
+}
+
+.active-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--active-photo);
+  background-position: center;
+  background-size: cover;
+  transition: background 520ms ease, filter 520ms ease;
+}
+
+.active-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.2), transparent 34%, rgba(0, 0, 0, 0.22)),
+    rgba(0, 0, 0, 0.1);
+}
+
+.gallery-track {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  min-height: inherit;
 }
 
 .person-card {
@@ -127,11 +158,10 @@ button {
   border-right: 1px solid rgba(255, 255, 255, 0.68);
   padding: 0;
   color: #fff;
-  background: #222;
+  background: transparent;
   cursor: pointer;
   text-align: center;
-  flex: 1 1 0;
-  transition: flex 760ms cubic-bezier(0.18, 0.82, 0.2, 1);
+  transition: background 360ms ease;
 }
 
 .person-card:last-child {
@@ -145,43 +175,14 @@ button {
   pointer-events: none;
 }
 
-.photo-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: var(--photo);
-  background-position: center;
-  background-size: cover;
-  filter: grayscale(1);
-  transition: filter 620ms ease, scale 760ms cubic-bezier(0.18, 0.82, 0.2, 1);
-}
-
 .person-card::after {
   z-index: 2;
   background: var(--shade, rgba(0, 0, 0, 0.54));
   transition: background 520ms ease;
 }
 
-.person-card.is-active {
-  flex-grow: 3.2;
-}
-
-.person-card.is-compressed {
-  flex-grow: 0.92;
-}
-
-.person-card.is-active .photo-layer {
-  filter: var(--tone, grayscale(0));
-  scale: 1.04;
-}
-
 .person-card.is-active::after {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.person-card.is-active + .person-card::after,
-.person-card:has(+ .person-card.is-active)::after {
-  background: rgba(0, 0, 0, 0.66);
+  background: rgba(0, 0, 0, 0.03);
 }
 
 .card-content {
@@ -194,11 +195,6 @@ button {
   justify-items: center;
   width: min(200px, 78%);
   translate: -50% -50%;
-  transition: translate 620ms cubic-bezier(0.18, 0.82, 0.2, 1);
-}
-
-.person-card.is-active .card-content {
-  translate: -50% -44%;
 }
 
 .role {
@@ -246,42 +242,4 @@ button {
   border-radius: 4px;
   color: #0f2111;
   background: var(--green);
-}
-
-@media (max-width: 800px) {
-  :root {
-    --header-h: 58px;
-  }
-
-  .site-header {
-    grid-template-columns: 1fr auto;
-  }
-
-  .nav {
-    display: none;
-  }
-
-  .brand strong {
-    font-size: 21px;
-  }
-
-  .gallery-track {
-    display: grid;
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
-
-  .person-card {
-    min-height: 260px;
-    border-right: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.68);
-  }
-
-  .photo-layer {
-    filter: grayscale(0);
-  }
-
-  .person-card::after {
-    background: rgba(0, 0, 0, 0.26);
-  }
 }

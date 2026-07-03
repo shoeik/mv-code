@@ -23,7 +23,10 @@
 
   <main class="page-shell">
     <section class="people-gallery" aria-label="People gallery">
-      <div class="gallery-track" data-role="track"></div>
+      <div class="gallery-stage">
+        <div class="active-backdrop" data-role="backdrop"></div>
+        <div class="gallery-track" data-role="track"></div>
+      </div>
       <a class="all-view" href="#">
         <span>ALL VIEW</span>
         <span>→</span>
@@ -50,9 +53,11 @@
 body {
   margin: 0;
   min-height: 100vh;
+  min-width: 1120px;
   color: var(--ink);
   font-family: Inter, "Helvetica Neue", Arial, sans-serif;
   background: var(--paper);
+  overflow-x: auto;
 }
 
 a,
@@ -151,9 +156,38 @@ button {
   align-items: stretch;
 }
 
-.gallery-track {
-  display: flex;
+.gallery-stage {
+  position: relative;
   min-height: 430px;
+  overflow: hidden;
+  background: #222;
+}
+
+.active-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--active-photo);
+  background-position: center;
+  background-size: cover;
+  transition: background 520ms ease, filter 520ms ease;
+}
+
+.active-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.2), transparent 34%, rgba(0, 0, 0, 0.22)),
+    rgba(0, 0, 0, 0.1);
+}
+
+.gallery-track {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  min-height: inherit;
 }
 
 .person-card {
@@ -164,11 +198,10 @@ button {
   border-right: 1px solid rgba(255, 255, 255, 0.68);
   padding: 0;
   color: #fff;
-  background: #222;
+  background: transparent;
   cursor: pointer;
   text-align: center;
-  flex: 1 1 0;
-  transition: flex 760ms cubic-bezier(0.18, 0.82, 0.2, 1);
+  transition: background 360ms ease;
 }
 
 .person-card:last-child {
@@ -182,43 +215,14 @@ button {
   pointer-events: none;
 }
 
-.photo-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: var(--photo);
-  background-position: center;
-  background-size: cover;
-  filter: grayscale(1);
-  transition: filter 620ms ease, scale 760ms cubic-bezier(0.18, 0.82, 0.2, 1);
-}
-
 .person-card::after {
   z-index: 2;
   background: var(--shade, rgba(0, 0, 0, 0.54));
   transition: background 520ms ease;
 }
 
-.person-card.is-active {
-  flex-grow: 3.2;
-}
-
-.person-card.is-compressed {
-  flex-grow: 0.92;
-}
-
-.person-card.is-active .photo-layer {
-  filter: var(--tone, grayscale(0));
-  scale: 1.04;
-}
-
 .person-card.is-active::after {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.person-card.is-active + .person-card::after,
-.person-card:has(+ .person-card.is-active)::after {
-  background: rgba(0, 0, 0, 0.66);
+  background: rgba(0, 0, 0, 0.03);
 }
 
 .card-content {
@@ -231,11 +235,6 @@ button {
   justify-items: center;
   width: min(200px, 78%);
   translate: -50% -50%;
-  transition: translate 620ms cubic-bezier(0.18, 0.82, 0.2, 1);
-}
-
-.person-card.is-active .card-content {
-  translate: -50% -44%;
 }
 
 .role {
@@ -284,44 +283,6 @@ button {
   color: #0f2111;
   background: var(--green);
 }
-
-@media (max-width: 800px) {
-  :root {
-    --header-h: 58px;
-  }
-
-  .site-header {
-    grid-template-columns: 1fr auto;
-  }
-
-  .nav {
-    display: none;
-  }
-
-  .brand strong {
-    font-size: 21px;
-  }
-
-  .gallery-track {
-    display: grid;
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
-
-  .person-card {
-    min-height: 260px;
-    border-right: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.68);
-  }
-
-  .photo-layer {
-    filter: grayscale(0);
-  }
-
-  .person-card::after {
-    background: rgba(0, 0, 0, 0.26);
-  }
-}
 ```
 
 ## JS
@@ -351,15 +312,8 @@ const people = [
 ];
 
 const track = document.querySelector('[data-role="track"]');
-let activeIndex = -1;
-let rotateTimer = 0;
-let resumeTimer = 0;
-const sequence = [-1, 0, 1, 2, 3];
-let sequenceIndex = 0;
-
-function columnsFor(index) {
-  return index;
-}
+const backdrop = document.querySelector('[data-role="backdrop"]');
+let activeIndex = 0;
 
 function render() {
   track.innerHTML = "";
@@ -368,10 +322,8 @@ function render() {
     card.className = "person-card";
     card.type = "button";
     card.style.setProperty("--photo", person.photo);
-    card.style.flexGrow = "1";
     card.style.setProperty("--shade", "rgba(0, 0, 0, 0.54)");
     card.innerHTML = `
-      <span class="photo-layer" aria-hidden="true"></span>
       <span class="card-content">
         <span class="role">${person.role}</span>
         <span class="arrow">→</span>
@@ -384,47 +336,24 @@ function render() {
   });
 }
 
-function setActive(index, restart = false) {
-  activeIndex = index < 0 ? -1 : (index + people.length) % people.length;
-  columnsFor(activeIndex);
+function setActive(index) {
+  activeIndex = (index + people.length) % people.length;
+  backdrop.style.setProperty("--active-photo", people[activeIndex].photo);
+
   [...track.children].forEach((card, cardIndex) => {
     const isActive = cardIndex === activeIndex;
-    const isCompressed = activeIndex >= 0 && !isActive;
-    const photo = card.querySelector(".photo-layer");
 
     card.classList.toggle("is-active", cardIndex === activeIndex);
-    card.classList.toggle("is-compressed", isCompressed);
     card.setAttribute("aria-pressed", String(isActive));
-    card.style.flexGrow = isActive ? "3.2" : isCompressed ? "0.92" : "1";
-    card.style.setProperty("--shade", isActive ? "rgba(0, 0, 0, 0.1)" : isCompressed ? "rgba(0, 0, 0, 0.62)" : "rgba(0, 0, 0, 0.54)");
-    photo.style.filter = isActive ? "grayscale(0)" : "grayscale(1)";
-    photo.style.scale = isActive ? "1.04" : "1";
+    card.style.setProperty("--shade", isActive ? "rgba(0, 0, 0, 0.03)" : "rgba(0, 0, 0, 0.58)");
   });
-
-  if (restart) pauseRotation();
-}
-
-function startRotation() {
-  window.clearInterval(rotateTimer);
-  rotateTimer = window.setInterval(() => {
-    sequenceIndex = (sequenceIndex + 1) % sequence.length;
-    setActive(sequence[sequenceIndex]);
-  }, 2300);
-}
-
-function pauseRotation() {
-  sequenceIndex = Math.max(0, sequence.indexOf(activeIndex));
-  window.clearInterval(rotateTimer);
-  window.clearTimeout(resumeTimer);
-  resumeTimer = window.setTimeout(startRotation, 4500);
 }
 
 window.addEventListener("keydown", (event) => {
-  if (event.key === "ArrowRight") setActive(activeIndex + 1, true);
-  if (event.key === "ArrowLeft") setActive(activeIndex - 1, true);
+  if (event.key === "ArrowRight") setActive(activeIndex + 1);
+  if (event.key === "ArrowLeft") setActive(activeIndex - 1);
 });
 
 render();
-setActive(-1);
-startRotation();
+setActive(0);
 ```
