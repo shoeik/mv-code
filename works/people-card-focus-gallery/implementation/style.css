@@ -130,7 +130,12 @@ button {
   background: var(--active-photo);
   background-position: center;
   background-size: cover;
-  transition: background 520ms ease, filter 520ms ease;
+  opacity: 0;
+  transition: background 520ms ease, filter 520ms ease, opacity 320ms ease;
+}
+
+.gallery-stage.is-active-mode .active-backdrop {
+  opacity: 1;
 }
 
 .active-backdrop::after {
@@ -175,10 +180,25 @@ button {
   pointer-events: none;
 }
 
+.person-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--photo);
+  background-position: center;
+  background-size: cover;
+  transition: opacity 420ms ease;
+}
+
 .person-card::after {
   z-index: 2;
   background: var(--shade, rgba(0, 0, 0, 0.54));
   transition: background 520ms ease;
+}
+
+.gallery-stage.is-active-mode .person-card::before {
+  opacity: 0;
 }
 
 .person-card.is-active::after {
@@ -195,6 +215,12 @@ button {
   justify-items: center;
   width: min(200px, 78%);
   translate: -50% -50%;
+  opacity: 1;
+  transition: opacity 220ms ease;
+}
+
+.gallery-stage.is-active-mode .person-card:not(.is-active) .card-content {
+  opacity: 0;
 }
 
 .role {
